@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -12,7 +15,7 @@ module.exports = {
   devtool: 'eval-source-map',
 
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:4040', // WebpackDevServer host and port
+    'webpack-dev-server/client?https://0.0.0.0:4040', // WebpackDevServer host and port
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     'babel-polyfill',  // 可以使用完整的ES6特性, 大概增加100KB
     './src/index.js',  // 编译的入口
@@ -50,6 +53,17 @@ module.exports = {
     ],
   },
 
+  devServer: {
+    host: 'localhost',
+    port: 4040,
+    hot: true,
+    https: {
+      cert: fs.readFileSync(path.resolve(__dirname, "C:\\Windows\\System32\\localhost.pem")),
+      key: fs.readFileSync(path.resolve(__dirname, "C:\\Windows\\System32\\localhost-key.pem")),
+    },
+  },
+
+
   plugins: [
     new webpack.BannerPlugin('This file is created by jxy'),   // 生成文件时加上注释
     new webpack.DefinePlugin({
@@ -62,7 +76,7 @@ module.exports = {
       title: 'WebSocket Debug Tool',
 
       // HtmlWebpackPlugin自己有一个favicon属性, 但用起来有点问题, 所以自己重新搞个favIcon属性
-      favIcon: 'http://jxy.me/favicon.ico',
+      favIcon: 'https://jxy.me/favicon.ico',
       // 这个属性也是我自己定义的, dev模式下要加载一些额外的js
       devMode: true,
     }),

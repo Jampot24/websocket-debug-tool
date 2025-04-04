@@ -65,7 +65,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'index.html.template',
       title: 'WebSocket Debug Tool',
-      favIcon: 'http://jxy.me/favicon.ico',
+      favIcon: 'https://jxy.me/favicon.ico',
       hash: true,  // 引入js/css的时候加个hash, 防止cdn的缓存问题
       minify: {removeComments: true, collapseWhitespace: true},
     }),
